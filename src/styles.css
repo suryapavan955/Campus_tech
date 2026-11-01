@@ -641,6 +641,7 @@
     @apply grid items-center;
     width: 100%;
     max-width: 100vw;
+    padding: 40px;
     grid-template-columns: minmax(320px, 440px) 1fr;
     gap: clamp(32px, 5vw, 70px);
     padding-block: clamp(60px, 10vw, 150px);
