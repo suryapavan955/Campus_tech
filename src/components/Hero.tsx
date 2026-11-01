@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import type { HeroSlide } from '../types';
 import { Artwork } from './Artwork';
 import { Button } from './Button';
+import { TextAnimate } from './ui/text-animate';
 
 interface HeroProps { slides: readonly HeroSlide[]; onDemo: () => void; onSolution: (id: string) => void }
 export function Hero({ slides, onDemo, onSolution }: HeroProps) {
@@ -17,8 +18,24 @@ export function Hero({ slides, onDemo, onSolution }: HeroProps) {
       <div className="page-container hero-content">
         <div className="hero-grid" id={slideId} role="group" aria-roledescription="slide" aria-label={`${active + 1} of ${slides.length}`}>
           <div className="hero-copy" aria-live="polite" aria-atomic="true">
-            <h1>{slide.prefix}<span className="text-brand-orange">{slide.emphasis}</span>{slide.suffix}</h1>
-            <p>{slide.description}</p>
+            <h1>
+              {slide.prefix ? (
+                <TextAnimate key={`pre-${active}`} as="span" by="word" animation="blurInUp" startOnView={false} duration={0.6}>
+                  {slide.prefix}
+                </TextAnimate>
+              ) : null}
+              <TextAnimate key={`emp-${active}`} as="span" by="word" animation="blurInUp" className="text-brand-orange" startOnView={false} delay={slide.prefix ? 0.15 : 0} duration={0.6}>
+                {slide.emphasis}
+              </TextAnimate>
+              {slide.suffix ? (
+                <TextAnimate key={`suf-${active}`} as="span" by="word" animation="blurInUp" startOnView={false} delay={0.25} duration={0.6}>
+                  {slide.suffix}
+                </TextAnimate>
+              ) : null}
+            </h1>
+            <TextAnimate key={`desc-${active}`} as="p" by="word" animation="fadeIn" startOnView={false} delay={0.35} duration={0.8}>
+              {slide.description}
+            </TextAnimate>
             <Button onClick={() => slide.solutionId ? onSolution(slide.solutionId) : onDemo()}>{slide.buttonLabel}</Button>
           </div>
           <Artwork asset={slide.artwork} className="hero-art" eager />

@@ -2,6 +2,7 @@ import { assets } from '../data/assets';
 import type { Statistic } from '../types';
 import { Artwork } from './Artwork';
 import { NumberTicker } from './ui/number-ticker';
+import { TextAnimate } from './ui/text-animate';
 
 interface TrustProps { items: readonly Statistic[] }
 
@@ -17,13 +18,28 @@ export function Trust({ items }: TrustProps) {
   return (
     <section id="institutions" className="trust-section" aria-labelledby="trust-title">
       <div className="page-container">
-        <h2 id="trust-title">The best in the<br />country <span className="text-brand-orange">trust us</span></h2>
+        <h2 id="trust-title">
+          <TextAnimate as="span" by="word" animation="blurInUp" once>
+            {"The best in the"}
+          </TextAnimate>
+          <br />
+          <TextAnimate as="span" by="word" animation="blurInUp" delay={0.15} once>
+            {"country "}
+          </TextAnimate>
+          <TextAnimate as="span" by="word" animation="blurInUp" className="text-brand-orange" delay={0.25} once>
+            {"trust us"}
+          </TextAnimate>
+        </h2>
         <dl className="stats-grid">
-          {items.map((item) => {
+          {items.map((item, index) => {
             const parsed = parseStatValue(item.value);
             return (
               <div key={item.label}>
-                <dt>{item.label}</dt>
+                <dt>
+                  <TextAnimate as="span" by="word" animation="slideUp" delay={0.2 + index * 0.1} once>
+                    {item.label}
+                  </TextAnimate>
+                </dt>
                 <dd className={item.color === 'yellow' ? 'text-brand-yellow' : 'text-brand-green'}>
                   {parsed ? (
                     <>
