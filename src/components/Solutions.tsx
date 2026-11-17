@@ -16,7 +16,11 @@ export function Solutions({ items, onSelect }: SolutionsProps) {
     if (element) {
       const firstCard = element.querySelector<HTMLElement>('.solution-card');
       const step = (firstCard?.offsetWidth || 340) + 32;
-      element.scrollBy({ left: direction * step, behavior: 'smooth' });
+      if (direction < 0 && element.scrollLeft <= step) {
+        element.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        element.scrollBy({ left: direction * step, behavior: 'smooth' });
+      }
     }
   };
 
@@ -79,7 +83,13 @@ export function Solutions({ items, onSelect }: SolutionsProps) {
           onChange={(event) => {
             const element = track.current;
             if (element) {
-              element.scrollLeft = (Number(event.target.value) / 100) * (element.scrollWidth - element.clientWidth);
+              const val = Number(event.target.value);
+              const maxScroll = element.scrollWidth - element.clientWidth;
+              if (val === 0) {
+                element.scrollTo({ left: 0, behavior: 'auto' });
+              } else {
+                element.scrollLeft = (val / 100) * maxScroll;
+              }
             }
           }}
         />

@@ -400,6 +400,7 @@
     gap: clamp(20px, 3.5vw, 52px);
     margin-top: clamp(36px, 5vw, 80px);
     padding: 16px max(calc((100% - 1330px) / 2), clamp(16px, 5vw, 48px)) 32px;
+    scroll-padding-inline: max(calc((100% - 1330px) / 2), clamp(16px, 5vw, 48px));
     scrollbar-width: none;
     -ms-overflow-style: none;
     -webkit-overflow-scrolling: touch;
@@ -944,6 +945,7 @@
 
   .solutions-track {
     padding-inline: 16px;
+    scroll-padding-inline: 16px;
   }
 
   .solution-card {

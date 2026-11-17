@@ -16,7 +16,7 @@ export function Artwork({ asset, className = '', eager = false }: ArtworkProps) 
           maxWidth: 'none',
           left: `${-asset.x / asset.width * 100}%`,
           top: `${-asset.y / asset.height * 100}%`,
-        }} 
+        }}
       />
     </span>
   );
